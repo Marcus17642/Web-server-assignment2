@@ -1,0 +1,223 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8; /* Light grayish-blue background */
+            text-align: center;
+            padding: 30px; /* Decrease padding */
+            margin: 0; /* Remove default margin */
+            position: relative; /* Set position relative for absolute positioning of calendar */
+            min-height: 100vh; /* Ensure body takes at least full viewport height */
+            font-size: 16px; /* Decrease base font size */
+        }
+        h1 {
+            color: #333; /* Dark gray for headings */
+            font-size: 2em; /* Decrease heading size */
+        }
+        h2 {
+            font-size: 1.75em; /* Decrease subheading size */
+        }
+        h3 {
+            font-size: 1.5em; /* Decrease h3 size */
+        }
+        .login-button, .logout-button {
+            background-color: #007bff; /* Blue button */
+            color: white;
+            padding: 10px 20px; /* Decrease padding for buttons */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px; /* Decrease button text size */
+            text-decoration: none;
+            margin: 5px; /* Add some margin */
+        }
+        .login-button:hover, .logout-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        section {
+            background-color: #ffffff; /* White background for sections */
+            margin: 15px 0; /* Decrease margin */
+            padding: 15px; /* Decrease padding */
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 16px; /* Decrease section text size */
+        }
+        #calendar-container {
+            display: flex; /* Use flexbox for centering */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            margin: 15px 0; /* Decrease margin for spacing */
+        }
+        #calendar-component {
+            width: 100%; /* Full width of the container */
+            max-width: 1000px; /* Decrease maximum width for the calendar block */
+            height: 300px; /* Decrease height for the calendar */
+            padding: 0; /* Remove padding */
+            background-color: #ffffff; /* Background color for the calendar */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow for better visibility */
+        }
+        /* Comment section styles */
+        #comment-section {
+            margin-top: 30px; /* Decrease space above the comment section */
+        }
+        #comment-input {
+            width: 80%; /* Width of the text area */
+            height: 80px; /* Decrease height of the text area */
+            border-radius: 5px;
+            border: 1px solid #ccc; /* Light border */
+            padding: 8px; /* Decrease padding inside the text area */
+            resize: none; /* Disable resizing */
+            font-size: 16px; /* Decrease text area font size */
+        }
+        #post-button {
+            background-color: #007bff; /* Blue button */
+            color: white;
+            padding: 10px 20px; /* Decrease padding for buttons */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px; /* Decrease button text size */
+            margin-top: 10px; /* Space above the button */
+        }
+        #post-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        /* Comments display styles */
+        #comments-display {
+            margin-top: 15px; /* Decrease space above the comments display */
+            background-color: #ffffff; /* White background for comments */
+            padding: 15px; /* Decrease padding */
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            max-width: 1000px; /* Maximum width for comments display */
+            margin-left: auto; /* Center the comments display */
+            margin-right: auto; /* Center the comments display */
+            text-align: left; /* Align text to the left */
+            font-size: 16px; /* Decrease comments display text size */
+        }
+        /* Individual comment styles */
+        .comment {
+            background-color: #f9f9f9; /* Light gray background for comments */
+            border: 1px solid #ddd; /* Light border */
+            border-radius: 5px; /* Rounded corners */
+            padding: 10px; /* Padding inside the comment block */
+            margin-bottom: 10px; /* Space between comments */
+        }
+        /* Warning message style */
+        #comment-warning {
+            color: red; /* Red text for warning */
+            display: none; /* Initially hidden */
+            margin-top: 10px; /* Space above the warning */
+            font-size: 16px; /* Decrease warning message font size */
+        }
+    </style>
+    <script type="module" defer src="https://cdn.jsdelivr.net/gh/imananoosheh/github-contributions-fetch@latest/github_calendar_widget.js"></script>
+</head>
+<body>
+    <h1>Welcome to My Portfolio!</h1>
+    <div id="user-info">
+        <a href="/auth/google" class="login-button" id="login-button">Login with Google</a>
+        <span id="greeting" style="display: none;"></span>
+        <a href="/logout" class="logout-button" id="logout-button" style="display: none;">Logout</a>
+    </div>
+
+    <!-- About Me Section -->
+    <section id="about-me">
+        <h2>About Me</h2>
+        <p>Hello! I'm Marcus. I enjoy learning new technologies and improving my skills.</p>
+    </section>
+
+    <!-- Projects Section Link -->
+    <section id="projects">
+        <h2><a href="projects.html" style="text-decoration: none; color: #007bff;">My Projects</a></h2>
+    </section>
+
+    <!-- GitHub Contribution Calendar Widget centered in a block -->
+    <div id="calendar-container">
+        <div id="calendar-component" username="Marcus17642" theme-color="#007bff"></div>
+    </div>
+
+    <!-- Comment Section -->
+    <div id="comment-section">
+        <h2>Leave a Comment</h2>
+        <textarea id="comment-input" placeholder="Write your comment here..." disabled></textarea>
+        <br>
+        <button id="post-button" disabled>Post</button>
+        <div id="comment-warning">Only logged-in users can comment.</div> <!-- Warning message -->
+    </div>
+
+    <!-- Comments Display Section -->
+    <div id="comments-display">
+        <h3>Comments:</h3>
+        <div id="comments-list"></div> <!-- Container for displaying comments -->
+    </div>
+
+    <script>
+        // Function to get URL parameters
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // Get user data from URL parameters
+        const userData = getUrlParameter('user');
+        const user = userData ? JSON.parse(userData) : null; // Parse user data if it exists
+
+        // Function to update UI based on authentication status
+        function updateUI() {
+            if (user) {
+                // Extract first name from displayName
+                const firstName = user.displayName.split(' ')[0]; // Get the first name
+                // Show greeting
+                document.getElementById('greeting').innerText = `Hello, ${firstName}!`;
+                document.getElementById('greeting').style.display = 'inline'; // Show greeting
+
+                // Hide login button and show logout button
+                document.getElementById('login-button').style.display = 'none';
+                document.getElementById('logout-button').style.display = 'inline'; // Show logout button
+
+                // Enable comment input and button if authenticated
+                document.getElementById('comment-input').disabled = false;
+                document.getElementById('post-button').disabled = false;
+                document.getElementById('comment-warning').style.display = 'none'; // Hide warning
+            } else {
+                // Show message if not authenticated
+                document.getElementById('comment-input').disabled = true;
+                document.getElementById('post-button').disabled = true;
+                document.getElementById('comment-warning').style.display = 'block'; // Show warning
+            }
+        }
+
+        // Call the function to update the UI
+        updateUI();
+
+        // Add functionality to the Post button
+        document.getElementById('post-button').addEventListener('click', function() {
+            const comment = document.getElementById('comment-input').value;
+            if (comment) {
+                // Create a new div for the comment
+                const commentDiv = document.createElement('div');
+                commentDiv.className = 'comment'; // Add class for styling
+                commentDiv.textContent = comment; // Set the text of the comment
+
+                // Append the new comment to the comments list
+                document.getElementById('comments-list').appendChild(commentDiv);
+
+                // Clear the input field
+                document.getElementById('comment-input').value = '';
+            } else {
+                alert('Please enter a comment before posting.');
+            }
+        });
+    </script>
+</body>
+</html>
