@@ -1,0 +1,180 @@
+/* public/styles.css */
+body {
+    font-family: 'Roboto', sans-serif; /* Use a more professional font */
+    background-color: #f4f7fa; /* Softer background color */
+    text-align: center;
+    padding: 20px; /* Adjust padding */
+    margin: 0;
+    position: relative;
+    min-height: 100vh;
+    font-size: 16px;
+    line-height: 1.6; /* Improve readability */
+}
+
+h1, h2, h3 {
+    color: #333;
+    margin-bottom: 20px; /* Add space below headings */
+}
+
+h1 {
+    font-size: 2.5em; /* Larger heading size */
+}
+
+h2 {
+    font-size: 2em;
+}
+
+h3 {
+    font-size: 1.75em;
+}
+
+.login-button, .logout-button {
+    background-color: #0056b3; /* Consistent button color */
+    color: white;
+    padding: 12px 24px; /* Adjust padding */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+    margin: 10px; /* Increase margin */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.login-button:hover, .logout-button:hover {
+    background-color: #003d80; /* Darker blue on hover */
+}
+
+section {
+    background-color: #ffffff;
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left; /* Align text to the left for sections */
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#calendar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+#calendar-component {
+    width: 100%;
+    max-width: 800px; /* Adjust max width */
+    height: 300px;
+    padding: 0;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#comment-section {
+    margin-top: 40px;
+}
+
+#comment-input {
+    width: 100%;
+    max-width: 600px; /* Limit width */
+    height: 100px; /* Adjust height */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    resize: none;
+    font-size: 16px;
+}
+
+#post-button {
+    background-color: #0056b3;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+}
+
+#post-button:hover {
+    background-color: #003d80;
+}
+
+#comments-display {
+    margin-top: 20px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    font-size: 16px;
+}
+
+.comment {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 12px;
+    margin-bottom: 12px;
+}
+
+#comment-warning {
+    color: red;
+    display: none;
+    margin-top: 15px;
+    font-size: 16px;
+}
+
+.greeting {
+    display: none;
+}
+
+.project-link {
+    text-decoration: none;
+    color: #007bff;
+}
+
+#login-button, #logout-button {
+    display: inline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.75em;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    .login-button, .logout-button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    #comment-input {
+        width: 100%;
+    }
+
+    #post-button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+} 

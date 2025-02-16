@@ -4,6 +4,9 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const session = require('express-session');
 const path = require('path');
+const dotenv = require('dotenv');
+const nodemailer = require('nodemailer');
+dotenv.config();
 
 const app = express();
 const PORT = 3000;
@@ -11,7 +14,7 @@ const PORT = 3000;
 // Serve static files from the 'public' directory
 app.use(express.static('public'));
 
-// Configure session middleware
+// Configure session middlewareL
 app.use(session({ secret: 'your_secret_key', resave: false, saveUninitialized: true }));
 
 // Initialize passport
@@ -19,11 +22,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Configure passport to use Google strategy
+
 passport.use(new GoogleStrategy({
-    clientID: '607585863670-ueqdi01eh08sdv9ar67dr8tkbfo023ti.apps.googleusercontent.com',
-    clientSecret: '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', // Your client secret
-    callbackURL: '/auth/google/callback'
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL: "/auth/google/callback"
 }, (accessToken, refreshToken, profile, done) => {
+    // Handle user profile here
     return done(null, profile);
 }));
 
@@ -35,6 +40,36 @@ passport.serializeUser((user, done) => {
 // Deserialize user
 passport.deserializeUser((user, done) => {
     done(null, user);
+});
+
+// Configure nodemailer transporter
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL, // Your email
+        pass: process.env.EMAIL_PASSWORD // Your email password or app-specific password
+    }
+});
+
+// Route to handle form submission
+app.post('/send-email', (req, res) => {
+    const { name, email, message } = req.body;
+
+    const mailOptions = {
+        from: email,
+        to: 'marcussu604@gmail.com',
+        subject: `New message from ${name}`,
+        text: message
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.error('Error sending email:', error);
+            return res.status(500).send('Error sending email');
+        }
+        console.log('Email sent:', info.response);
+        res.status(200).send('Email sent successfully');
+    });
 });
 
 // Define routes
@@ -65,6 +100,8 @@ app.get('/logout', (req, res) => {
         });
     });
 });
+
+app.use(express.json());
 
 // Start the server
 app.listen(PORT, () => {
